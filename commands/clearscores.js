@@ -21,7 +21,7 @@ module.exports.run = async(bot, message, args) => {
         fs.writeFileSync('data.json', writedata);
 
         let embed = new Discord.MessageEmbed()
-            .setColor(0x23c449)
+            .setColor(0xfffff)
             .setTitle("Successfully cleared scores");
         message.channel.send(embed)
     }

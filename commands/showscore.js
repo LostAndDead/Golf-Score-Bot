@@ -38,7 +38,7 @@ module.exports.run = async(bot, message, args) => {
     }
 
     let embed = new Discord.MessageEmbed()
-        .setColor(0x23c449)
+        .setColor(0xFFD700)
         .addField("Scores", string)
     message.channel.send(embed)
 
