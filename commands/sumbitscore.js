@@ -3,7 +3,10 @@ const fs = require('fs');
 
 module.exports.run = async(bot, message, args) => {
     let rawdata = fs.readFileSync('data.json');
-    let data = JSON.parse(rawdata);  
+    let data = JSON.parse(rawdata); 
+    
+    rawdata = fs.readFileSync('scores.json');
+    let scoresData = JSON.parse(rawdata);
 
     let userID = message.author.id
     let score = args[0]
@@ -15,6 +18,18 @@ module.exports.run = async(bot, message, args) => {
         return message.channel.send(embed)
     }
 
+    if(!scoresData[userID]){
+        scoresData[userID] = [score]
+    }else if(scoresData[userID].length == 1){
+        scoresData[userID].push(score)
+    }else{
+        let embed = new Discord.MessageEmbed()
+            .setColor(0xd63344)
+            .setTitle("You have already submitted 2 scores");
+        return message.channel.send(embed)
+    }
+    
+
     if(!data[userID]){
         data[userID] = parsed
     }else{
@@ -25,7 +40,10 @@ module.exports.run = async(bot, message, args) => {
         .setTitle("Successfully updated your score");
     message.channel.send(embed)
 
-    let writedata = JSON.stringify(data);
+    let writedata = JSON.stringify(scoresData);
+    fs.writeFileSync('scores.json', writedata);
+
+    writedata = JSON.stringify(data);
     fs.writeFileSync('data.json', writedata);
 };
 

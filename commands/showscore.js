@@ -1,9 +1,13 @@
 const Discord = require("discord.js");
 const fs = require('fs');
+const { userInfo } = require("os");
 
 module.exports.run = async(bot, message, args) => {
     let rawdata = fs.readFileSync('data.json');
     let data = JSON.parse(rawdata);
+
+    rawdata = fs.readFileSync('scores.json');
+    let scoresData = JSON.parse(rawdata);
 
     var sortable = []
     for (var item in data){
@@ -26,7 +30,11 @@ module.exports.run = async(bot, message, args) => {
     }
 
     for (let item in objSorted) {
-        string += (`<@${item}> Current Score: ${objSorted[item]}\n`)
+        if(scoresData[item].length == 2){
+            string += (`<@${item}> Total Score: \`${objSorted[item]}\`\nRound 1: \`${scoresData[item][0]}\`    Round 2: \`${scoresData[item][1]}\``)
+        }else{
+            string += (`<@${item}> Total Score: \`${objSorted[item]}\`\nRound 1: \`${scoresData[item][0]}\` Round 2: \`TBD\``)
+        }
     }
 
     let embed = new Discord.MessageEmbed()
