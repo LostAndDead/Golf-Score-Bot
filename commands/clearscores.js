@@ -12,6 +12,8 @@ module.exports.run = async(bot, message, args) => {
         data = {}
         scoresData = {}
 
+        console.log(`${message.author.tag} cleared all the scores`)
+
         let writedata = JSON.stringify(scoresData);
         fs.writeFileSync('scores.json', writedata);
 

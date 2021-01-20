@@ -32,7 +32,8 @@ fs.readdir("./commands/", (err, file) => {
         let props = require(`./commands/${f}`);
         bot.commands.set(props.help.name, props);
     });
-    console.log("All commands loaded successfully");
+    console.clear()
+    console.log("All commands loaded successfully\n");
 });
 
 // D.JS Client listeners
@@ -51,8 +52,10 @@ process.on('warning', console.warn);
 
 //on ready statment
 bot.on("ready", async() => {
-    console.log("Online")
-    console.log(`Invite me to a server with the following link.\nhttps://discordapp.com/api/oauth2/authorize?client_id=${bot.user.id}&permissions=125952&scope=bot`);
+    console.log("The bot is now online")
+    console.log("Keep this window open for the bot to run\n")
+    console.log(`Invite me to a server with the following link.\nhttps://discordapp.com/api/oauth2/authorize?client_id=${bot.user.id}&permissions=125952&scope=bot\n`);
+    console.log("Press CTRL+C to exit\n")
     bot.user.setPresence({
         status: "online",
         activity: {

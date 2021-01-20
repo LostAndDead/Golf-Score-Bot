@@ -28,7 +28,6 @@ module.exports.run = async(bot, message, args) => {
             .setTitle("You have already submitted 2 scores");
         return message.channel.send(embed)
     }
-    
 
     if(!data[userID]){
         data[userID] = parsed
@@ -39,6 +38,8 @@ module.exports.run = async(bot, message, args) => {
         .setColor(0x23c449)
         .setTitle("Successfully updated your score");
     message.channel.send(embed)
+
+    console.log(`${message.author.tag} submitted a new score of ${score} making there new score ${data[userID]}`)
 
     let writedata = JSON.stringify(scoresData);
     fs.writeFileSync('scores.json', writedata);
