@@ -11,6 +11,12 @@ module.exports.run = async(bot, message, args) => {
     let userID = message.author.id
     let score = args[0]
     let parsed = parseInt(args[0])
+    if (args[0].length > 4){
+        let embed = new Discord.MessageEmbed()
+            .setColor(0xd63344)
+            .setTitle("Stop trying to break me.");
+        return message.channel.send(embed)
+    }
     if(isNaN(parsed)){
         let embed = new Discord.MessageEmbed()
             .setColor(0xd63344)
