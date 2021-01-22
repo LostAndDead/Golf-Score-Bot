@@ -4,3 +4,4 @@ Setup:
 Settings:
   StatusType: PLAYING #PLAYING: WATCHING: LISTENING: STREAMING:
   StatusMessage: Golf
+  OwnerID: (Your ID)

@@ -1,5 +1,16 @@
 const Discord = require("discord.js");
 const fs = require('fs');
+const yaml = require('js-yaml');
+
+let Config = null;
+
+try {
+    let fileContents = fs.readFileSync('./config.yml', 'utf8');
+    Config = yaml.load(fileContents);
+}
+catch (e) {
+    console.log(e);
+}
 
 module.exports.run = async(bot, message, args) => {
     let rawdata = fs.readFileSync('data.json');
@@ -9,6 +20,14 @@ module.exports.run = async(bot, message, args) => {
     let scoresData = JSON.parse(rawdata);
 
     let userID = message.author.id
+    let other = false
+
+    if(args[1] && (message.member.hasPermission("MANAGE_MESSAGES") || message.author.id == Config.Settings.OwnerID) && (args[1].startsWith("<@") && args[1].endsWith(">"))){
+        args[1] = args[1].slice(3, -1)
+        userID = args[1]
+        other = true
+    }
+
     if (args[0].length > 4){
         let embed = new Discord.MessageEmbed()
             .setColor(0xd63344)
@@ -40,12 +59,32 @@ module.exports.run = async(bot, message, args) => {
     }else{
         data[userID] += parsed
     }
-    let embed = new Discord.MessageEmbed()
-        .setColor(0x23c449)
-        .setTitle("Successfully updated your score");
-    message.channel.send(embed)
 
-    console.log(`${message.author.tag} submitted a new score of ${score} making there new score ${data[userID]}`)
+    if (other){
+        console.log(userID)
+        try{
+            let user = await bot.users.fetch(userID)
+            console.log(`${message.author.tag} submitted a new score for ${user.tag} of ${score} making there new score ${data[userID]}`)
+            let embed = new Discord.MessageEmbed()
+                .setColor(0x23c449)
+                .setTitle(`Successfully updated ${user.tag}'s score'`);
+            message.channel.send(embed)
+        }catch (err){
+            let embed = new Discord.MessageEmbed()
+                .setColor(0xd63344)
+                .setTitle("Something went wrong, make sure you mentioned a valid user.");
+            return message.channel.send(embed)
+        }
+        
+        
+    }else{
+        console.log(`${message.author.tag} submitted a new score of ${score} making there new score ${data[userID]}`)
+        let embed = new Discord.MessageEmbed()
+            .setColor(0x23c449)
+            .setTitle("Successfully updated your score");
+        message.channel.send(embed)
+    }
+    
 
     let writedata = JSON.stringify(scoresData);
     fs.writeFileSync('scores.json', writedata);

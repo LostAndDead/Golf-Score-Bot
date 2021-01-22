@@ -15,12 +15,12 @@ catch (e) {
 module.exports.run = async(bot, message, args) => {
     let embed = new Discord.MessageEmbed()
             .setColor(0xd6d258)
-            .setTitle("Help")
+            .setTitle("Gold Bot Commands")
             .addField(`${Config.Setup.Prefix}ping`, "Make sure im still alive.")
             .addField(`${Config.Setup.Prefix}help`, "See this message.")
-            .addField(`${Config.Setup.Prefix}submitscore (number)`, "Submit your score to be saved and tallied.\n`Can only be done twice per user before scores are cleared by an admin.`")
-            .addField(`${Config.Setup.Prefix}scores`, "See a list of all players scores sorted from low to high.")
-            .addField(`${Config.Setup.Prefix}clearscores`, "Clears all the scores\n`Can only be ran by people with Manage Messages permission`")
+            .addField(`${Config.Setup.Prefix}submitscore \`(number) [@User]\``, "Submit your score to be saved and tallied.\n```Can only be done twice per user before scores are cleared by an admin.\n\nAdmins can also mention a user to modify their scores.```")
+            .addField(`${Config.Setup.Prefix}score`, "See a list of all players scores sorted from low to high.")
+            .addField(`${Config.Setup.Prefix}clearscores \`(all|@User)\``, "Clears all the scores, or the scores of a specific person\n```Can only be ran by people with Manage Messages permission```")
             .setFooter('Made by LostAndDead#0001', 'https://cdn.discordapp.com/avatars/329353232570908682/a_dd8b8ac06a7732882f328dfa931a0a62.gif?size=256');
             
         message.channel.send(embed)
