@@ -66,9 +66,10 @@ module.exports.run = async(bot, message, args) => {
             console.log(`${message.author.tag} submitted a new score for ${user.tag} of ${score} making there new score ${data[userID]}`)
             let embed = new Discord.MessageEmbed()
                 .setColor(0x23c449)
-                .setTitle(`Successfully updated ${user.tag}'s score'`);
+                .setTitle(`Successfully updated ${user.tag}'s score's`);
             message.channel.send(embed)
         }catch (err){
+            throw err
             let embed = new Discord.MessageEmbed()
                 .setColor(0xd63344)
                 .setTitle("Something went wrong, make sure you mentioned a valid user.");

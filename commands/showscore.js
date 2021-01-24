@@ -29,23 +29,44 @@ module.exports.run = async(bot, message, args) => {
         string = "No Scores"
     }
 
-    let entries = 0
-    for (let item in objSorted) {
-        if (entries < 10){
-            if(scoresData[item].length == 2){
-                string += (`<@${item}> Total Score: \`${objSorted[item]}\`\nRound 1: \`${scoresData[item][0]}\`    Round 2: \`${scoresData[item][1]}\`\n`)
-            }else{
-                string += (`<@${item}> Total Score: \`${objSorted[item]}\`\nRound 1: \`${scoresData[item][0]}\` Round 2: \`TBD\`\n`)
-            }
-            entries++
+    //let entries = 0
+    //for (let item in objSorted) {
+    //    if (entries < 10){
+    //        if(scoresData[item].length == 2){
+    //            string += (`<@${item}> Total Score: \`${objSorted[item]}\`\nRound 1: \`${scoresData[item][0]}\`    Round 2: \`${scoresData[item][1]}\`\n`)
+    //        }else{
+    //            string += (`<@${item}> Total Score: \`${objSorted[item]}\`\nRound 1: \`${scoresData[item][0]}\` Round 2: \`TBD\`\n`)
+    //        }
+    //        entries++
+    //    }
+    //}
+
+    let count = 0
+    let messages = 0
+    let remaining = Object.keys(objSorted).length
+    for (let item in objSorted){
+        if(scoresData[item].length == 2){
+            string += (`<@${item}> Total Score: \`${objSorted[item]}\`\nRound 1: \`${scoresData[item][0]}\`    Round 2: \`${scoresData[item][1]}\`\n`)
+        }else{
+            string += (`<@${item}> Total Score: \`${objSorted[item]}\`\nRound 1: \`${scoresData[item][0]}\` Round 2: \`TBD\`\n`)
+        }
+        count++
+        remaining--
+        if (count == 10){
+            messages ++
+            let embed = new Discord.MessageEmbed()
+                .setColor(0xFFD700)
+                .addField("Scores Page: " + messages, string)
+            await message.channel.send(embed)
+            string = ""
+            count = 0
         }
     }
 
     let embed = new Discord.MessageEmbed()
         .setColor(0xFFD700)
-        .addField("Scores", string)
+        .addField("Scores Page: " + (messages + 1), string)
     message.channel.send(embed)
-
 };
 
 module.exports.help = {
