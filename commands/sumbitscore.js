@@ -61,7 +61,6 @@ module.exports.run = async(bot, message, args) => {
     }
 
     if (other){
-        console.log(userID)
         try{
             let user = await bot.users.fetch(userID)
             console.log(`${message.author.tag} submitted a new score for ${user.tag} of ${score} making there new score ${data[userID]}`)
