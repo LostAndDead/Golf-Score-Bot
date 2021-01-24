@@ -30,7 +30,8 @@ module.exports.run = async(bot, message, args) => {
                 .setTitle("Successfully cleared all scores");
             message.channel.send(embed)
         }else if(args[0] && (args[0].startsWith("<@") && args[0].endsWith(">"))){
-            let userID = args[0].slice(3, -1)
+            let userID = args[0].slice(2, -1)
+            userID = userID.replace("!","")
             let user = await bot.users.fetch(userID)
             delete data[userID]
             delete scoresData[userID]
