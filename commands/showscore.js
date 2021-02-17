@@ -29,21 +29,8 @@ module.exports.run = async(bot, message, args) => {
         string = "No Scores"
     }
 
-    //let entries = 0
-    //for (let item in objSorted) {
-    //    if (entries < 10){
-    //        if(scoresData[item].length == 2){
-    //            string += (`<@${item}> Total Score: \`${objSorted[item]}\`\nRound 1: \`${scoresData[item][0]}\`    Round 2: \`${scoresData[item][1]}\`\n`)
-    //        }else{
-    //            string += (`<@${item}> Total Score: \`${objSorted[item]}\`\nRound 1: \`${scoresData[item][0]}\` Round 2: \`TBD\`\n`)
-    //        }
-    //        entries++
-    //    }
-    //}
-
     let count = 0
     let messages = 0
-    let remaining = Object.keys(objSorted).length
     for (let item in objSorted){
         if(scoresData[item].length == 2){
             string += (`<@${item}> Total Score: \`${objSorted[item]}\`\nRound 1: \`${scoresData[item][0]}\`    Round 2: \`${scoresData[item][1]}\`\n`)
@@ -51,7 +38,6 @@ module.exports.run = async(bot, message, args) => {
             string += (`<@${item}> Total Score: \`${objSorted[item]}\`\nRound 1: \`${scoresData[item][0]}\` Round 2: \`TBD\`\n`)
         }
         count++
-        remaining--
         if (count == 10){
             messages ++
             let embed = new Discord.MessageEmbed()

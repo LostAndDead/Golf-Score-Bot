@@ -14,6 +14,7 @@ catch (e) {
     console.log(e);
 }
 
+
 //define command collection
 bot.commands = new Discord.Collection();
 
