@@ -33,9 +33,12 @@ module.exports.run = async(bot, message, args) => {
     let other = false
 
     if(args[1] && (message.member.hasPermission("MANAGE_MESSAGES") || message.author.id == Config.Settings.OwnerID) && (args[1].startsWith("<@") && args[1].endsWith(">"))){
-        args[1] = args[1].slice(2, -1)
-        userID = args[1]
-        userID = userID.replace("!","")
+        userID = args[1].replace("!","")
+        userID = userID.replace("<","")
+        userID = userID.replace(">","")
+        userID = userID.replace("@","")
+        userID = userID.replace("&","")
+        console.log(userID)
         other = true
     }
 

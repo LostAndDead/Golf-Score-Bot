@@ -35,9 +35,9 @@ module.exports.run = async(bot, message, args) => {
     for (let item in objSorted){
         var user = await guild.members.cache.find(user => user.id == item).user
         if(scoresData[item].length == 2){
-            string += (`${user.username} Total Score: \`${objSorted[item]}\`\nRound 1: \`${scoresData[item][0]}\`    Round 2: \`${scoresData[item][1]}\`\n`)
+            string += (`**${user.username}** Total Score: \`${objSorted[item]}\`\nRound 1: \`${scoresData[item][0]}\`    Round 2: \`${scoresData[item][1]}\`\n`)
         }else{
-            string += (`${user.username} Total Score: \`${objSorted[item]}\`\nRound 1: \`${scoresData[item][0]}\` Round 2: \`TBD\`\n`)
+            string += (`**${user.username}** Total Score: \`${objSorted[item]}\`\nRound 1: \`${scoresData[item][0]}\` Round 2: \`TBD\`\n`)
         }
         count++
         if (count == 10){
