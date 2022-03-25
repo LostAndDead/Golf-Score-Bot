@@ -59,13 +59,8 @@ module.exports.run = async(bot, message, args) => {
 
     if(!scoresData[userID]){
         scoresData[userID] = [score]
-    }else if(scoresData[userID].length == 1){
-        scoresData[userID].push(score)
     }else{
-        let embed = new Discord.MessageEmbed()
-            .setColor(0xd63344)
-            .setTitle("You have already submitted 2 scores");
-        return message.channel.send(embed)
+        scoresData[userID].push(score)
     }
 
     if(!data[userID]){
